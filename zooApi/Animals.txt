@@ -1,1 +1,1 @@
-[{"Id":1,"Species":"zebra","Weight":"250","Height":"1"},{"Id":2,"Species":"camela","Weight":"350","Height":"3"},{"Id":3,"Species":"lion","Weight":"250","Height":"1"}]
+[{"Id":1,"Species":"zebra","Weight":"250","Height":"1"},{"Id":2,"Species":"camel","Weight":"350","Height":"3"}]

@@ -7,11 +7,13 @@ namespace zooApi.Services.Interfaces
     {
         public Animal AddAnimal(AnimalModelForClient postAnimal);
 
-        public Animal RemoveAnimal(int id);
+        public Animal Remove(int id);
 
         public List<Animal> GetAll();
+
         public Animal? GetDetail(int id);
 
+        public Animal PutAnimal(AnimalModelForClient animal, int id);
 
     }
 }

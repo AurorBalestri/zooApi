@@ -23,10 +23,17 @@ namespace zooApi.Controllers
             return Created("", animalToAdd);
         }
 
-        [HttpDelete()]
+        [HttpDelete("{id}")]
         public IActionResult RemoveAnimal(int id)
         {
-            return Ok(_animalService.RemoveAnimal(id));
+            var animalOnId = _animalService.Remove(id);
+            if(animalOnId == null)
+            {
+                return NoContent();
+            } else
+            {
+                return Ok(animalOnId);
+            }
         }
 
         [HttpGet()]
@@ -54,6 +61,13 @@ namespace zooApi.Controllers
             {
                 return Ok(animal);
             }
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateAnimal(int id, [FromBody] AnimalModelForClient animal)
+        {
+            var animalUpdated = _animalService.PutAnimal(animal, id);
+            return Ok(animalUpdated);
         }
     }
 }

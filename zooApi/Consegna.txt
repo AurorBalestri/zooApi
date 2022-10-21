@@ -21,14 +21,14 @@ CRUD
 									*GetAll, nome = GetAllAnimals
 									-GET /animals 
 
-	Delete, nome = RemoveAnimal 
-	-DELETE /animal/{animalId}
+									*Delete, nome = RemoveAnimal 
+									-DELETE /animal/{animalId}
 
 	PUT, nome = UpdateAnimal
 	-PUT /animal/{animalID}
 
-	GetById, nome = GetAnimalById
-	-GET /animal/animalId
+									*GetById, nome = GetAnimalById
+									-GET /animal/animalId
 
  
 

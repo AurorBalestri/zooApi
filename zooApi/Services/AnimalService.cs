@@ -44,18 +44,19 @@ namespace zooApi.Services
             return animalsOnFile.Max(animal => animal.Id) + 1;
         }
 
-        public Animal RemoveAnimal(int id)
+        public Animal Remove(int id)
         {
-            var animalToDelete = _animals.FirstOrDefault(animal => animal.Id == id);
-            if(animalToDelete == null)
+            var animals = _fileAnimal.ReadAndDeserialize(_animalPath);
+            var animalOnId = animals.FirstOrDefault(animal => animal.Id == id);
+            if(animalOnId != null)
             {
-                return null;
+                animals.Remove(animalOnId);
+                _fileAnimal.WriteAndSerialize(_animalPath, animals);
+                return animalOnId;
             } else
             {
-                _animals.Remove(animalToDelete);
-                return animalToDelete;
+                return null;
             }
-
         }
 
         public List<Animal> GetAll()
@@ -68,6 +69,36 @@ namespace zooApi.Services
             var animalRead = _fileAnimal.ReadAndDeserialize(_animalPath);
             var animalOnId = animalRead.FirstOrDefault(animal => animal.Id == id);
             return animalOnId;
+        }
+
+        public Animal PutAnimal(AnimalModelForClient animal, int id)
+        {
+            var animalMapped = new Animal();
+            animalMapped.Id = GetId();
+            animalMapped.Species = animal.Species;
+            animalMapped.Weight = animal.Weight;
+            animalMapped.Height = animal.Height;
+
+            var animalRead = _fileAnimal.ReadAndDeserialize(_animalPath);
+            var animalOnId = animalRead.FirstOrDefault(animal => animal.Id == id);
+
+            if(animalOnId == null)
+            {
+                animalRead.Add(animalMapped);
+                _fileAnimal.WriteAndSerialize(_animalPath, animalRead);
+                return animalMapped;
+            }
+            else
+            {
+                animalMapped.Id = id;
+                animalRead.Remove(animalOnId);
+                animalRead.Add(animalMapped);
+                _fileAnimal.WriteAndSerialize(_animalPath, animalRead);
+            }
+
+
+            return animalMapped;
+
         }
     }
 }
