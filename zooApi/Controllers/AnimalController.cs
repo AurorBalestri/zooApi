@@ -41,5 +41,19 @@ namespace zooApi.Controllers
                 return Ok(animalsOnFile);
             }
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetAnimalById(int id)
+        {
+            var animal = _animalService.GetDetail(id);
+            if(animal == null)
+            {
+                return NoContent();
+            }
+            else
+            {
+                return Ok(animal);
+            }
+        }
     }
 }

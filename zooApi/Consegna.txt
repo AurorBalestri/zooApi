@@ -18,10 +18,10 @@ CRUD
 									*Create, nome = CreateAnimal
 									-POST /animal [FromBody] TractorModelForClient
 
-	GetAll, nome = GetAllAnimals
-	-GET /animals 
+									*GetAll, nome = GetAllAnimals
+									-GET /animals 
 
-									*Delete, nome = RemoveAnimal 
+	Delete, nome = RemoveAnimal 
 	-DELETE /animal/{animalId}
 
 	PUT, nome = UpdateAnimal

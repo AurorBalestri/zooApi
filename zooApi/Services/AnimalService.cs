@@ -62,5 +62,12 @@ namespace zooApi.Services
         {
             return _fileAnimal.ReadAndDeserialize(_animalPath);
         }
+
+        public Animal? GetDetail(int id)
+        {
+            var animalRead = _fileAnimal.ReadAndDeserialize(_animalPath);
+            var animalOnId = animalRead.FirstOrDefault(animal => animal.Id == id);
+            return animalOnId;
+        }
     }
 }
