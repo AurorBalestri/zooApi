@@ -5,6 +5,8 @@ namespace zooApi.Services.Interfaces
 {
     public interface IAnimalService
     {
-        public Animal AddAnimal(PostAnimalModel postAnimal);
+        public Animal AddAnimal(AnimalModelForClient postAnimal);
+
+        public Animal RemoveAnimal(int id);
     }
 }

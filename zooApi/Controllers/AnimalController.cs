@@ -6,21 +6,27 @@ using zooApi.Services.Interfaces;
 
 namespace zooApi.Controllers
 {
-        [Route("[controller]")]
-        [ApiController]
-        public class AnimalController : ControllerBase
-        {
-        private readonly IAnimalService _animalService;
+    [Route("[controller]")]
+    [ApiController]
+    public class AnimalController : ControllerBase
+    {
+    private readonly IAnimalService _animalService;
 
-        public AnimalController(IAnimalService animalService)
+    public AnimalController(IAnimalService animalService)
+    {
+        _animalService = animalService;
+    }
+        [HttpPost()]
+        public IActionResult CreateAnimal([FromBody] AnimalModelForClient animalModel)
         {
-            _animalService = animalService;
+            var animalToAdd = _animalService.AddAnimal(animalModel);
+            return Ok(animalToAdd);
         }
-            [HttpPost()]
-            public IActionResult CreateAnimal([FromBody] PostAnimalModel animalModel)
-            {
-                var animalToAdd = _animalService.AddAnimal(animalModel);
-                return Ok(animalToAdd);
-            }
+
+        [HttpDelete()]
+        public IActionResult RemoveAnimal(int id)
+        {
+            return Ok(_animalService.RemoveAnimal(id););
         }
+    }
 }

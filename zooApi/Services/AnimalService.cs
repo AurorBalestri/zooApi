@@ -11,14 +11,14 @@ namespace zooApi.Services
             _animals = animals;
         }
 
-        public Animal AddAnimal(PostAnimalModel animal)
+        public Animal AddAnimal(AnimalModelForClient animal)
         {
             var animalToAdd = MappingWithId(animal);
             _animals.Add(animalToAdd);
             return animalToAdd;
         }
 
-        public Animal MappingWithId(PostAnimalModel animalModel)
+        public Animal MappingWithId(AnimalModelForClient animalModel)
         {
             var animalWithId = new Animal();
             animalWithId.Id = GetId();
@@ -35,6 +35,20 @@ namespace zooApi.Services
                 return 1;
 
             return _animals.Max(animal => animal.Id) + 1;
+        }
+
+        public Animal RemoveAnimal(int id)
+        {
+            var animalToDelete = _animals.FirstOrDefault(animal => animal.Id == id);
+            if(animalToDelete == null)
+            {
+                return null;
+            } else
+            {
+                _animals.Remove(animalToDelete);
+                return animalToDelete;
+            }
+
         }
     }
 }

@@ -1,0 +1,63 @@
+﻿
+*Animale { 
+
+Specie, 
+
+Peso 
+
+Altezza 
+
+Id 
+
+} 
+
+ 
+
+CRUD 
+
+									*Create, nome = CreateAnimal
+									-POST /animal [FromBody] TractorModelForClient
+
+	GetAll, nome = GetAllAnimals
+	-GET /animals 
+
+	Delete, nome = RemoveAnimal 
+	-DELETE /animal/{animalId}
+
+	PUT, nome = UpdateAnimal
+	-PUT /animal/{animalID}
+
+	GetById, nome = GetAnimalById
+	-GET /animal/animalId
+
+ 
+
+
+
+
+
+La persistenza (FileHelper all’interno del service). 
+
+GetAnimaliFromSpecie 
+
+*GetOrderByPeso 
+
+ 
+
+*Area { 
+
+	Id 
+
+	CapienzaMaxAnimali 
+
+	Specie 
+
+	Animali 
+
+} 
+
+*POST Area 
+
+*InsertAnimaleInArea 
+
+*RicercaAreaTramiteAnimale 
