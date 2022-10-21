@@ -20,13 +20,26 @@ namespace zooApi.Controllers
         public IActionResult CreateAnimal([FromBody] AnimalModelForClient animalModel)
         {
             var animalToAdd = _animalService.AddAnimal(animalModel);
-            return Ok(animalToAdd);
+            return Created("", animalToAdd);
         }
 
         [HttpDelete()]
         public IActionResult RemoveAnimal(int id)
         {
-            return Ok(_animalService.RemoveAnimal(id););
+            return Ok(_animalService.RemoveAnimal(id));
+        }
+
+        [HttpGet()]
+        public IActionResult GetAllAnimals()
+        {
+            var animalsOnFile = _animalService.GetAll();
+            if(animalsOnFile == null)
+            {
+                return NotFound();
+            } else
+            {
+                return Ok(animalsOnFile);
+            }
         }
     }
 }

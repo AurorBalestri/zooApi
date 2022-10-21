@@ -21,7 +21,7 @@ CRUD
 	GetAll, nome = GetAllAnimals
 	-GET /animals 
 
-	Delete, nome = RemoveAnimal 
+									*Delete, nome = RemoveAnimal 
 	-DELETE /animal/{animalId}
 
 	PUT, nome = UpdateAnimal

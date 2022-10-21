@@ -1,11 +1,15 @@
-﻿using zooApi.Models;
+﻿using zooApi.Helper;
+using zooApi.Models;
 using zooApi.Services.Interfaces;
 
 namespace zooApi.Services
 {
     public class AnimalService : IAnimalService
     {
+        public static readonly string _animalPath = "Animals.txt";
         private readonly IList<Animal> _animals;
+        private AnimalFileHelper _fileAnimal = new AnimalFileHelper();
+
         public AnimalService(IList<Animal> animals)
         {
             _animals = animals;
@@ -14,7 +18,9 @@ namespace zooApi.Services
         public Animal AddAnimal(AnimalModelForClient animal)
         {
             var animalToAdd = MappingWithId(animal);
-            _animals.Add(animalToAdd);
+            var animals = _fileAnimal.ReadAndDeserialize(_animalPath);
+            animals.Add(animalToAdd);
+            _fileAnimal.WriteAndSerialize(_animalPath, animals);
             return animalToAdd;
         }
 
@@ -31,10 +37,11 @@ namespace zooApi.Services
 
         private int GetId()
         {
-            if (_animals.Count == 0)
+            var animalsOnFile = _fileAnimal.ReadAndDeserialize(_animalPath);
+            if (animalsOnFile.Count == 0)
                 return 1;
 
-            return _animals.Max(animal => animal.Id) + 1;
+            return animalsOnFile.Max(animal => animal.Id) + 1;
         }
 
         public Animal RemoveAnimal(int id)
@@ -49,6 +56,11 @@ namespace zooApi.Services
                 return animalToDelete;
             }
 
+        }
+
+        public List<Animal> GetAll()
+        {
+            return _fileAnimal.ReadAndDeserialize(_animalPath);
         }
     }
 }
